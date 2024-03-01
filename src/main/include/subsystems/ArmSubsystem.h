@@ -33,7 +33,7 @@ class ArmSubsystem : public frc2::SubsystemBase {
     /**
     * Locks the arm at the current angle.
     */
-    void LockAngle(void);
+    void LockAngle(bool intakePositon, bool outakePosition);
 
     /**
      * Returns the heading of the robot.

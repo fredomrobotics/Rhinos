@@ -139,6 +139,7 @@ extern const frc::TrapezoidProfile<units::radians>::Constraints
 
 namespace OIConstants {
 constexpr int kDriverControllerPort = 0;
+constexpr int kDriverControllerPort2 = 1;
 constexpr double kDriveDeadband = 0.05;
 constexpr double kIntakeDeadband = 0.05;
 constexpr double kShooterDeadband = 0.05;
@@ -162,7 +163,7 @@ constexpr double kArmP = 100;
 constexpr double kArmI = 10;
 constexpr double kArmD = 70;
 
-constexpr double kMaxOutputArmVoltage = 4;
+constexpr double kMaxOutputArmVoltage = 8;
 
 constexpr double kArmInitialAngle = 0.7;
 constexpr double kArmIntakeAngle = 0.9;
@@ -183,18 +184,16 @@ constexpr int kShooterLeftMotorCanId = 11;
 constexpr int kShooterRightMotorCanId = 12;
 constexpr units::ampere_t kShooterMotor1CurrentLimit = 40_A;
 constexpr units::ampere_t kShooterMotor2CurrentLimit = 40_A;
-constexpr double kShooterP = 0.1;
-constexpr double kShooterI = 0;
+constexpr double kShooterP = 0;
+constexpr double kShooterI = 0.01;
 constexpr double kShooterD = 0;
-constexpr double kShooterFF = 0.00015;
-constexpr double kShootingMinOutput = -1;
-constexpr double kShootingMaxOutput = 1;
 constexpr double kFirstShootingSpeed = 4000;
 constexpr double kShooterSpeedThreshold = 50;
 } // namespace ShooterConstants
 
 namespace LauncherConstants {
 constexpr double kIntakeAndOutakeThreshold = 0.3;
-constexpr double kOutakeSpeed = 2000;
+constexpr double kOutakeSpeed = 1500;
 constexpr double kDefaultShootingSpeed = 3000;
+constexpr double kIdleShootingSpeed = 1000;
 } // namespace LauncherConstants

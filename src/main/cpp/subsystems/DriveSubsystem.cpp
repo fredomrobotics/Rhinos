@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "subsystems/DriveSubsystem.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include <frc/geometry/Rotation2d.h>
 #include <units/angle.h>
@@ -11,6 +12,7 @@
 
 #include "Constants.h"
 #include "utils/SwerveUtils.h"
+#include "utils/deg2rads.h"
 
 using namespace DriveConstants;
 
@@ -25,15 +27,16 @@ DriveSubsystem::DriveSubsystem()
                   kRearRightChassisAngularOffset},
       m_odometry{kDriveKinematics,
                  frc::Rotation2d(units::radian_t{
-                     m_gyro.GetAngle()}),
+                     deg2rad(m_gyro.GetYaw())}),
                  {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
                   m_rearLeft.GetPosition(), m_rearRight.GetPosition()},
                  frc::Pose2d{}} {}
 
 void DriveSubsystem::Periodic() {
+  frc::SmartDashboard::PutNumber("Swerve Angle:", deg2rad(m_gyro.GetYaw()));
   // Implementation of subsystem periodic method goes here.
   m_odometry.Update(frc::Rotation2d(units::radian_t{
-                        m_gyro.GetAngle()}),
+                        deg2rad(m_gyro.GetYaw())}),
                     {m_frontLeft.GetPosition(), m_rearLeft.GetPosition(),
                      m_frontRight.GetPosition(), m_rearRight.GetPosition()});
 }
@@ -113,7 +116,7 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
           ? frc::ChassisSpeeds::FromFieldRelativeSpeeds(
                 xSpeedDelivered, ySpeedDelivered, rotDelivered,
                 frc::Rotation2d(units::radian_t{
-                    m_gyro.GetAngle()}))
+                    deg2rad(m_gyro.GetYaw())}))
           : frc::ChassisSpeeds{xSpeedDelivered, ySpeedDelivered, rotDelivered});
 
   kDriveKinematics.DesaturateWheelSpeeds(&states, DriveConstants::kMaxSpeed);
@@ -154,9 +157,9 @@ void DriveSubsystem::ResetEncoders() {
   m_rearRight.ResetEncoders();
 }
 
-units::degree_t DriveSubsystem::GetHeading() const {
+units::degree_t DriveSubsystem::GetHeading() {
   return frc::Rotation2d(
-             units::radian_t{m_gyro.GetAngle()})
+             units::radian_t{deg2rad(m_gyro.GetYaw())})
       .Degrees();
 }
 

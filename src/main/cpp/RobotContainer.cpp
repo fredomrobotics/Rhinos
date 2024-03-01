@@ -21,7 +21,7 @@
 #include "Constants.h"
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
-// #include "subsystems/ArmSubsystem.h"
+#include "subsystems/ArmSubsystem.h"
 
 using namespace DriveConstants;
 
@@ -50,14 +50,14 @@ RobotContainer::RobotContainer() {
     // The right trigger controls the intake in, and the left trigger controls the intake out
     m_launcher.SetDefaultCommand(frc2::RunCommand(
       [this] {
-        m_launcher.intakeAndOutake(frc::ApplyDeadband(m_driverController.GetRawAxis(OIConstants::kRigthTrigger), OIConstants::kIntakeDeadband), 
-                                    frc::ApplyDeadband(m_driverController.GetRawAxis(OIConstants::kLeftTrigger), OIConstants::kIntakeDeadband));
+        m_launcher.intakeAndOutake(frc::ApplyDeadband(m_driverController2.GetRawAxis(OIConstants::kRigthTrigger), OIConstants::kIntakeDeadband), 
+                                    frc::ApplyDeadband(m_driverController2.GetRawAxis(OIConstants::kLeftTrigger), OIConstants::kIntakeDeadband));
       },
       {&m_launcher}));
 
     m_arm.SetDefaultCommand(frc2::RunCommand(
       [this] {
-        m_arm.LockAngle();
+        m_arm.LockAngle(m_driverController2.GetRawButton(OIConstants::kAButton), m_driverController2.GetRawButton(OIConstants::kXButton));
       },
       {&m_arm}));
 }
@@ -70,14 +70,6 @@ void RobotContainer::ConfigureButtonBindings() {
     // Reset the gyro when pressing the right stick button
     frc2::JoystickButton(&m_driverController, OIConstants::kRightStickButton)
         .OnTrue(new frc2::RunCommand([this] { m_drive.ZeroHeading(); }, {&m_drive}));
-
-    // Moves the arm to intaking
-    frc2::JoystickButton(&m_driverController, OIConstants::kAButton)
-        .OnTrue(new frc2::RunCommand([this] { m_arm.MoveToAngle(ArmConstants::kArmIntakeAngle); }, {&m_drive}));
-
-    // Moves the arm to outaking
-    frc2::JoystickButton(&m_driverController, OIConstants::kXButton)
-        .OnTrue(new frc2::RunCommand([this] { m_arm.MoveToAngle(ArmConstants::kArmOutakeAngle); }, {&m_drive}));
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

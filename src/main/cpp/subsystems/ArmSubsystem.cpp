@@ -1,4 +1,3 @@
-#include <frc/smartdashboard/SmartDashboard.h>
 #include "subsystems/ArmSubsystem.h"
 
 #include "Constants.h"
@@ -19,7 +18,7 @@ ArmSubsystem::ArmSubsystem(void) :
 }
 
 void ArmSubsystem::Periodic() {
-    error = setpoint - s_armAbsoluteEncoder.GetAbsolutePosition();
+    error = this->setpoint - s_armAbsoluteEncoder.GetAbsolutePosition();
     pidOutput = error*kArmP;
 }
 
@@ -27,8 +26,12 @@ void ArmSubsystem::MoveToAngle(double desiredAngle) {
     this->setpoint = desiredAngle;
 }
 
-void ArmSubsystem::LockAngle(void) {
-    frc::SmartDashboard::PutNumber("PID Output:", pidOutput);
+void ArmSubsystem::LockAngle(bool intakePosition, bool outakePosition) {
+    if (intakePosition) {
+        this->setpoint = kArmIntakeAngle;
+    } else if (outakePosition) {
+        this->setpoint = kArmOutakeAngle;
+    }
 
     if (pidOutput > kMaxOutputArmVoltage) {
         motorsOutput = (units::volt_t)kMaxOutputArmVoltage;

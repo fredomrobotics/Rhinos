@@ -18,8 +18,22 @@ ShooterSubsystem::ShooterSubsystem(void) :
 }
 
 void ShooterSubsystem::Periodic() {
+    this->error1 = this->setpoint - m_shootingEncoder1.GetVelocity();
+    this->error2 = this->setpoint - m_shootingEncoder2.GetVelocity();
+    this->integralError1 += this->error1*0.020;
+    this->integralError2 += this->error2*0.020;
+    m_shooterSparkMax1.SetVoltage((units::volt_t)(this->error1*kShooterP+this->integralError1*kShooterI));
+    m_shooterSparkMax2.SetVoltage((units::volt_t)(this->error2*kShooterP+this->integralError2*kShooterI));
 }
 
 void ShooterSubsystem::setSpeed(double speed) {
-    m_shooterSparkMax1.Set(0.5);
+    if (this->setpoint != speed) {
+        this->integralError1 = 0;
+        this->integralError2 = 0;
+    }
+    this->setpoint = speed;
+}
+
+bool ShooterSubsystem::isAtSpeed(void) {
+    return m_shootingEncoder1.GetVelocity()-this->setpoint < kShooterSpeedThreshold && m_shootingEncoder2.GetVelocity()-this->setpoint < kShooterSpeedThreshold;
 }

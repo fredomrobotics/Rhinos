@@ -32,9 +32,22 @@ class ShooterSubsystem : public frc2::SubsystemBase {
      */
     void setDefaultSpeed(void);
 
+    /**
+     * Checks if the shooter is at speed
+     */
+    bool isAtSpeed(void);
+
  private:
     rev::CANSparkMax m_shooterSparkMax1;
     rev::CANSparkMax m_shooterSparkMax2;
+    rev::SparkRelativeEncoder m_shootingEncoder1 =
+      m_shooterSparkMax1.GetEncoder(rev::SparkRelativeEncoder::Type::kHallSensor);
+    rev::SparkRelativeEncoder m_shootingEncoder2 =
+      m_shooterSparkMax2.GetEncoder(rev::SparkRelativeEncoder::Type::kHallSensor);
 
     double setpoint;
+    double error1;
+    double error2;
+    double integralError1 = 0;
+    double integralError2 = 0;
 };
