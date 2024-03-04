@@ -1,4 +1,5 @@
 #include "subsystems/IntakeSubsystem.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "Constants.h"
 
@@ -12,11 +13,11 @@ IntakeSubsystem::IntakeSubsystem(void) : m_intakeSparkMax{kIntakeMotorCanId, rev
 }
 
 void IntakeSubsystem::Periodic() {
-    // Implementation of subsystem periodic method goes here.
+    frc::SmartDashboard::PutNumber("Switch:", !limitSensor.Get());
 }
 
 void IntakeSubsystem::runUntilSensor(double power) {
-    if (limitSensor.Get()) {
+    if (!limitSensor.Get()) {
         this->noteInside = true;
     }
     if (this->noteInside) {
@@ -27,8 +28,10 @@ void IntakeSubsystem::runUntilSensor(double power) {
 }
 
 void IntakeSubsystem::run(double power) {
-    if (power < 0) {
-        this->noteInside = false;
-    }
+    this->noteInside = false;
     m_intakeSparkMax.Set(power);
+}
+
+void IntakeSubsystem::stop(void) {
+    m_intakeSparkMax.Set(0);
 }

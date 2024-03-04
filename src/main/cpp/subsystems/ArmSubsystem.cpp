@@ -26,11 +26,13 @@ void ArmSubsystem::MoveToAngle(double desiredAngle) {
     this->setpoint = desiredAngle;
 }
 
-void ArmSubsystem::LockAngle(bool intakePosition, bool outakePosition) {
+void ArmSubsystem::LockAngle(bool intakePosition, bool outakePosition, bool shootingPosition) {
     if (intakePosition) {
         this->setpoint = kArmIntakeAngle;
     } else if (outakePosition) {
         this->setpoint = kArmOutakeAngle;
+    } else if (shootingPosition) {
+        this->setpoint = kArmShootingAngle;
     }
 
     if (pidOutput > kMaxOutputArmVoltage) {

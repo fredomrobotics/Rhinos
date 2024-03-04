@@ -37,6 +37,8 @@ class ShooterSubsystem : public frc2::SubsystemBase {
      */
     bool isAtSpeed(void);
 
+    void resetIntegralError(void);
+
  private:
     rev::CANSparkMax m_shooterSparkMax1;
     rev::CANSparkMax m_shooterSparkMax2;

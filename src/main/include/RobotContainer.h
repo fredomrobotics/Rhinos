@@ -18,6 +18,7 @@
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/ArmSubsystem.h"
 #include "subsystems/LauncherSubsystem.h"
+#include "subsystems/ClimberSubsystem.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -32,11 +33,6 @@ class RobotContainer {
 
   frc2::Command* GetAutonomousCommand();
 
- private:
-  // The driver's controller
-  frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
-  frc::XboxController m_driverController2{OIConstants::kDriverControllerPort2};
-
   // Subsystems
   // The drivetrain subsystem
   DriveSubsystem m_drive;
@@ -46,6 +42,14 @@ class RobotContainer {
 
   // Arm Subsystem
   ArmSubsystem m_arm;
+
+  // Climber
+  ClimberSubsystem m_climber;
+
+ private:
+  // The driver's controller
+  frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
+  frc::XboxController m_driverController2{OIConstants::kDriverControllerPort2};
 
   // The chooser for the autonomous routines
   frc::SendableChooser<frc2::Command*> m_chooser;

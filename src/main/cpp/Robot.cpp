@@ -7,7 +7,9 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
-void Robot::RobotInit() {}
+void Robot::RobotInit() {
+  m_container.m_launcher.resetIntegralError();
+}
 
 /**
  * This function is called every 20 ms, no matter the mode. Use

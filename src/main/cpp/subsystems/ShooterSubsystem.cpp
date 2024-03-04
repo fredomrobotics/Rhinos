@@ -34,6 +34,11 @@ void ShooterSubsystem::setSpeed(double speed) {
     this->setpoint = speed;
 }
 
+void ShooterSubsystem::resetIntegralError(void) { 
+    this->integralError1 = 0;
+    this->integralError2 = 0;
+}
+
 bool ShooterSubsystem::isAtSpeed(void) {
-    return m_shootingEncoder1.GetVelocity()-this->setpoint < kShooterSpeedThreshold && m_shootingEncoder2.GetVelocity()-this->setpoint < kShooterSpeedThreshold;
+    return abs(m_shootingEncoder1.GetVelocity()-this->setpoint) < kShooterSpeedThreshold && abs(m_shootingEncoder2.GetVelocity()-this->setpoint) < kShooterSpeedThreshold;
 }

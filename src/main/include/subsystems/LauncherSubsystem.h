@@ -28,9 +28,14 @@ class LauncherSubsystem : public frc2::SubsystemBase {
     /**
      * Reads the triggers and enables intaking and outaking
      */
-    void intakeAndOutake(double speed1, double speed2);
+    void intakeAndOutake(double speed1, double speed2, bool shoot);
+
+    void resetIntegralError(void);
 
  private:
     ShooterSubsystem m_shooter;
     IntakeSubsystem m_intake;
+
+    int waitCycles = 0;
+    double waitTime = LauncherConstants::kDelayBeforeShooting;
 };

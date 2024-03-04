@@ -42,7 +42,7 @@ RobotContainer::RobotContainer() {
                 m_driverController.GetRawAxis(OIConstants::kLeftXStick), OIConstants::kDriveDeadband)},
             -units::radians_per_second_t{frc::ApplyDeadband(
                 m_driverController.GetRawAxis(OIConstants::kRightXStick), OIConstants::kDriveDeadband)},
-            false, true);
+            true, true);
       },
       {&m_drive}));
 
@@ -51,15 +51,24 @@ RobotContainer::RobotContainer() {
     m_launcher.SetDefaultCommand(frc2::RunCommand(
       [this] {
         m_launcher.intakeAndOutake(frc::ApplyDeadband(m_driverController2.GetRawAxis(OIConstants::kRigthTrigger), OIConstants::kIntakeDeadband), 
-                                    frc::ApplyDeadband(m_driverController2.GetRawAxis(OIConstants::kLeftTrigger), OIConstants::kIntakeDeadband));
+                                  frc::ApplyDeadband(m_driverController2.GetRawAxis(OIConstants::kLeftTrigger), OIConstants::kIntakeDeadband),
+                                  m_driverController2.GetRawButton(OIConstants::kBButton));
       },
       {&m_launcher}));
 
     m_arm.SetDefaultCommand(frc2::RunCommand(
       [this] {
-        m_arm.LockAngle(m_driverController2.GetRawButton(OIConstants::kAButton), m_driverController2.GetRawButton(OIConstants::kXButton));
+        m_arm.LockAngle(m_driverController2.GetRawButton(OIConstants::kAButton), 
+                        m_driverController2.GetRawButton(OIConstants::kXButton), 
+                        m_driverController2.GetRawButton(OIConstants::kYButton));
       },
       {&m_arm}));
+
+      m_climber.SetDefaultCommand(frc2::RunCommand(
+      [this] {
+        m_climber.Move(frc::ApplyDeadband(m_driverController2.GetRawAxis(OIConstants::kLeftYStick), OIConstants::kClimberDeadband));
+      },
+      {&m_climber}));
 }
 
 void RobotContainer::ConfigureButtonBindings() {

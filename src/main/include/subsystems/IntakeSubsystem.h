@@ -30,6 +30,8 @@ class IntakeSubsystem : public frc2::SubsystemBase {
      */
     void run(double power);
 
+    void stop(void);
+
  private:
     rev::CANSparkMax m_intakeSparkMax;
     double meanSpeed;

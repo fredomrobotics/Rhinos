@@ -143,6 +143,7 @@ constexpr int kDriverControllerPort2 = 1;
 constexpr double kDriveDeadband = 0.05;
 constexpr double kIntakeDeadband = 0.05;
 constexpr double kShooterDeadband = 0.05;
+constexpr double kClimberDeadband = 0.05;
 
 constexpr int kLeftBumper = 5;
 constexpr int kRightStickButton = 10;
@@ -150,7 +151,9 @@ constexpr int kLeftYStick = 1;
 constexpr int kLeftXStick = 0;
 constexpr int kRightXStick = 4;
 constexpr int kAButton = 1;
+constexpr int kBButton = 2;
 constexpr int kXButton = 3;
+constexpr int kYButton = 4;
 constexpr int kRigthTrigger = 3;
 constexpr int kLeftTrigger = 2;
 }  // namespace OIConstants
@@ -166,8 +169,9 @@ constexpr double kArmD = 70;
 constexpr double kMaxOutputArmVoltage = 8;
 
 constexpr double kArmInitialAngle = 0.7;
-constexpr double kArmIntakeAngle = 0.9;
+constexpr double kArmIntakeAngle = 0.89;
 constexpr double kArmOutakeAngle = 0.65;
+constexpr double kArmShootingAngle = 0.84;
 
 constexpr int kArmPIDPositionToleranceDegrees = 3;
 constexpr int kArmPIDVelocityToleranceDegreesPerSec = 15;
@@ -187,13 +191,19 @@ constexpr units::ampere_t kShooterMotor2CurrentLimit = 40_A;
 constexpr double kShooterP = 0;
 constexpr double kShooterI = 0.01;
 constexpr double kShooterD = 0;
-constexpr double kFirstShootingSpeed = 4000;
 constexpr double kShooterSpeedThreshold = 50;
 } // namespace ShooterConstants
 
 namespace LauncherConstants {
 constexpr double kIntakeAndOutakeThreshold = 0.3;
+constexpr double kIntakeFeedingPower = 0.7;
 constexpr double kOutakeSpeed = 1500;
-constexpr double kDefaultShootingSpeed = 3000;
+constexpr double kShootingSpeed = 5000;
 constexpr double kIdleShootingSpeed = 1000;
+constexpr double kDelayBeforeShooting = 1.5;
 } // namespace LauncherConstants
+
+namespace ClimberConstants {
+constexpr int kClimberMotor1CanId = 15;
+constexpr int kClimberMotor2CanId = 16;
+}
