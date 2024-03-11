@@ -13,6 +13,8 @@
 #include <frc/kinematics/SwerveDriveOdometry.h>
 #include <frc2/command/SubsystemBase.h>
 
+#include <frc/Timer.h>
+
 #include "Constants.h"
 #include "MAXSwerveModule.h"
 
@@ -42,6 +44,8 @@ class DriveSubsystem : public frc2::SubsystemBase {
   void Drive(units::meters_per_second_t xSpeed,
              units::meters_per_second_t ySpeed, units::radians_per_second_t rot,
              bool fieldRelative, bool rateLimit);
+
+  void DriveForSeconds(units::meters_per_second_t xSpeed, double seconds);
 
   /**
    * Sets the wheels into an X formation to prevent movement.

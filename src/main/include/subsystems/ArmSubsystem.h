@@ -42,6 +42,8 @@ class ArmSubsystem : public frc2::SubsystemBase {
      */
     double GetAngle(void);
 
+    void waitForAngle(double angle);
+
  private:
    ctre::phoenix6::hardware::TalonFX m_armMotor1;
    ctre::phoenix6::hardware::TalonFX m_armMotor2;

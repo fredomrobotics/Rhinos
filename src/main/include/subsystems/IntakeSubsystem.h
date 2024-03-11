@@ -6,6 +6,8 @@
 #include "frc/DigitalInput.h"
 #include <frc2/command/SubsystemBase.h>
 
+#include <frc/Timer.h>
+
 #include "Constants.h"
 
 class IntakeSubsystem : public frc2::SubsystemBase {

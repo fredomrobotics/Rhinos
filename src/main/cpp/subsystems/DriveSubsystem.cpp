@@ -163,6 +163,14 @@ units::degree_t DriveSubsystem::GetHeading() {
       .Degrees();
 }
 
+void DriveSubsystem::DriveForSeconds(units::meters_per_second_t xSpeed,double seconds) {
+  units::time::second_t startTime = frc::Timer::GetFPGATimestamp();
+  while (frc::Timer::GetFPGATimestamp() - startTime < (units::time::second_t)seconds) {
+    Drive(xSpeed, 0_mps, 0_rad_per_s, false, false);
+  }
+  Drive(0_mps, 0_mps, 0_rad_per_s, false, false);
+}
+
 void DriveSubsystem::ZeroHeading() { m_gyro.Reset(); }
 
 double DriveSubsystem::GetTurnRate() {

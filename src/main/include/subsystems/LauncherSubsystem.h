@@ -6,6 +6,8 @@
 #include "IntakeSubsystem.h"
 #include <frc2/command/SubsystemBase.h>
 
+#include <frc/Timer.h>
+
 #include "Constants.h"
 
 class LauncherSubsystem : public frc2::SubsystemBase {
@@ -29,6 +31,10 @@ class LauncherSubsystem : public frc2::SubsystemBase {
      * Reads the triggers and enables intaking and outaking
      */
     void intakeAndOutake(double speed1, double speed2, bool shoot);
+
+    void autonomousShoot();
+
+    void intakeForSeconds(double seconds);
 
     void resetIntegralError(void);
 

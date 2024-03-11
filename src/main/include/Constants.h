@@ -159,6 +159,7 @@ constexpr int kLeftTrigger = 2;
 }  // namespace OIConstants
 
 namespace ArmConstants {
+constexpr double kArmAngleThreshold = 0.05;
 constexpr int kArmAbsoluteEncoderPort = 0;
 constexpr int kArmMotor1CanId = 13;
 constexpr int kArmMotor2CanId = 14;

@@ -50,3 +50,9 @@ void ArmSubsystem::LockAngle(bool intakePosition, bool outakePosition, bool shoo
 double ArmSubsystem::GetAngle(void) {
   return s_armAbsoluteEncoder.GetAbsolutePosition();
 }
+
+void ArmSubsystem::waitForAngle(double angle) {
+    while (abs(s_armAbsoluteEncoder.GetAbsolutePosition() - angle) > kArmAngleThreshold) {
+        this->MoveToAngle(angle);
+    }
+}
