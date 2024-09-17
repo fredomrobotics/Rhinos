@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 #include <frc/trajectory/TrapezoidProfile.h>
 #include <rev/CANSparkMax.h>
 #include <units/acceleration.h>
@@ -12,19 +8,9 @@
 #include <units/velocity.h>
 #include <units/voltage.h>
 #include <units/acceleration.h>
-
 #include <numbers>
 
 #pragma once
-
-/**
- * The Constants header provides a convenient place for teams to hold robot-wide
- * numerical or bool constants.  This should not be used for any other purpose.
- *
- * It is generally a good idea to place constants into subsystem- or
- * command-specific namespaces within this header, which can then be used where
- * they are needed.
- */
 
 namespace DriveConstants {
 // Driving Parameters - Note that these are not the maximum capable speeds of
@@ -164,15 +150,15 @@ constexpr int kArmAbsoluteEncoderPort = 0;
 constexpr int kArmMotor1CanId = 13;
 constexpr int kArmMotor2CanId = 14;
 constexpr double kArmP = 100;
-constexpr double kArmI = 10;
+constexpr double kArmI = 40;
 constexpr double kArmD = 70;
 
-constexpr double kMaxOutputArmVoltage = 8;
+constexpr double kMaxOutputArmVoltage = 12;
 
-constexpr double kArmInitialAngle = 0.7;
-constexpr double kArmIntakeAngle = 0.89;
-constexpr double kArmOutakeAngle = 0.65;
-constexpr double kArmShootingAngle = 0.84;
+constexpr double kArmInitialAngle = 68; //68
+constexpr double kArmIntakeAngle = 0;
+constexpr double kArmOutakeAngle = 86;
+constexpr double kArmShootingAngle = 18;
 
 constexpr int kArmPIDPositionToleranceDegrees = 3;
 constexpr int kArmPIDVelocityToleranceDegreesPerSec = 15;
@@ -182,6 +168,8 @@ namespace IntakeConstants {
 constexpr int kIntakeMotorCanId = 10;
 constexpr int kIntakeLimitPort = 1;
 constexpr units::ampere_t kIntakeMotorCurrentLimit = 30_A;
+constexpr int kIntakeMotor2CanId = 15;
+constexpr int kIntakeMotor3CanId = 16;
 }  // namespace IntakeConstants
 
 namespace ShooterConstants {
@@ -189,8 +177,7 @@ constexpr int kShooterLeftMotorCanId = 11;
 constexpr int kShooterRightMotorCanId = 12;
 constexpr units::ampere_t kShooterMotor1CurrentLimit = 40_A;
 constexpr units::ampere_t kShooterMotor2CurrentLimit = 40_A;
-constexpr double kShooterP = 0;
-constexpr double kShooterI = 0.01;
+constexpr double kShooterI = 0.0015;
 constexpr double kShooterD = 0;
 constexpr double kShooterSpeedThreshold = 50;
 } // namespace ShooterConstants
@@ -199,12 +186,20 @@ namespace LauncherConstants {
 constexpr double kIntakeAndOutakeThreshold = 0.3;
 constexpr double kIntakeFeedingPower = 0.7;
 constexpr double kOutakeSpeed = 1500;
-constexpr double kShootingSpeed = 5000;
-constexpr double kIdleShootingSpeed = 1000;
+constexpr double kShootingSpeed = 4500;
+constexpr double kIdleShootingSpeed = 0;
 constexpr double kDelayBeforeShooting = 1.5;
 } // namespace LauncherConstants
 
 namespace ClimberConstants {
-constexpr int kClimberMotor1CanId = 15;
-constexpr int kClimberMotor2CanId = 16;
-}
+constexpr int kClimberMotor1CanId = 17;
+constexpr int kClimberMotor2CanId = 18;
+constexpr units::ampere_t kClimberMotor1CurrentLimit = 3.8_A;
+constexpr units::ampere_t kClimberMotor2CurrentLimit = 3.8_A;
+} // namespace ClimberConstants
+
+namespace LimelightConstants {
+constexpr double kDistanceM = 1.115;
+constexpr double kAlignmentP = 0.05;
+constexpr double kAlignmentI = 0.04;
+} // namespace LimelightConstants

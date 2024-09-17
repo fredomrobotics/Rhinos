@@ -1,4 +1,5 @@
 #include "subsystems/LauncherSubsystem.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "Constants.h"
 
@@ -7,8 +8,7 @@ using namespace LauncherConstants;
 LauncherSubsystem::LauncherSubsystem(void) : m_shooter{}, m_intake{} {
 }
 
-void LauncherSubsystem::Periodic() {
-}
+void LauncherSubsystem::Periodic() {}
 
 void LauncherSubsystem::shootAtSpeed(double speed) {
     
@@ -17,10 +17,15 @@ void LauncherSubsystem::shootAtSpeed(double speed) {
 void LauncherSubsystem::intakeAndOutake(double speed1, double speed2, bool shoot) {
     if (shoot) {
         m_shooter.setSpeed(kShootingSpeed);
-        if (waitCycles > (int)waitTime*50) {
-            m_intake.run(kIntakeFeedingPower);
+        if (m_shooter.isAtSpeed()) {
+            if (at_speed_counts > 20) {
+                m_intake.run(kIntakeFeedingPower);
+            }
+            at_speed_counts++;
+        } else {
+            m_intake.run(0);
+            at_speed_counts = 0;
         }
-        waitCycles += 1;
     } else {
         if (speed1 - speed2 > kIntakeAndOutakeThreshold) {
         m_intake.runUntilSensor(speed1 - speed2);
@@ -31,7 +36,6 @@ void LauncherSubsystem::intakeAndOutake(double speed1, double speed2, bool shoot
             m_shooter.setSpeed(kIdleShootingSpeed);
             m_intake.stop();
         }
-        waitCycles = 0;
     }
 }
 

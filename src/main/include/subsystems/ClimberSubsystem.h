@@ -20,12 +20,14 @@ class ClimberSubsystem : public frc2::SubsystemBase {
 
     // Subsystem methods go here.
 
+    void setVoltage(double voltage, double input);
+
     /**
      * Moves the climber
      */
     void Move(double power);
 
  private:
-   ctre::phoenix6::hardware::TalonFX m_climberMotor1;
-   ctre::phoenix6::hardware::TalonFX m_climberMotor2;
+   rev::CANSparkMax m_climberMotor1;
+   rev::CANSparkMax m_climberMotor2;
 };

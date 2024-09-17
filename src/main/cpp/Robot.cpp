@@ -8,7 +8,6 @@
 #include <frc2/command/CommandScheduler.h>
 
 void Robot::RobotInit() {
-  m_container.m_launcher.resetIntegralError();
 }
 
 /**
@@ -26,9 +25,13 @@ void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
  * can use it to reset any subsystem information you want to clear when the
  * robot is disabled.
  */
-void Robot::DisabledInit() {}
+void Robot::DisabledInit() {
+}
 
-void Robot::DisabledPeriodic() {}
+void Robot::DisabledPeriodic() {
+  m_container.m_launcher.resetIntegralError();
+  m_container.m_arm.resetIntegralError();
+}
 
 /**
  * This autonomous runs the autonomous command selected by your {@link

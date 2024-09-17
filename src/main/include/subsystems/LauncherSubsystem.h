@@ -42,6 +42,6 @@ class LauncherSubsystem : public frc2::SubsystemBase {
     ShooterSubsystem m_shooter;
     IntakeSubsystem m_intake;
 
-    int waitCycles = 0;
+    double at_speed_counts = 0;
     double waitTime = LauncherConstants::kDelayBeforeShooting;
 };

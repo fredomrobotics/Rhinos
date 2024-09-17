@@ -43,7 +43,7 @@ class DriveSubsystem : public frc2::SubsystemBase {
    */
   void Drive(units::meters_per_second_t xSpeed,
              units::meters_per_second_t ySpeed, units::radians_per_second_t rot,
-             bool fieldRelative, bool rateLimit);
+             bool fieldRelative, bool rateLimit, bool yawReset, bool b_button);
 
   void DriveForSeconds(units::meters_per_second_t xSpeed, double seconds);
 
@@ -95,7 +95,7 @@ class DriveSubsystem : public frc2::SubsystemBase {
    */
   void ResetOdometry(frc::Pose2d pose);
 
-  frc::SwerveDriveKinematics<4> kDriveKinematics{
+  frc::SwerveDriveKinematics<4U> kDriveKinematics{
       frc::Translation2d{DriveConstants::kWheelBase / 2,
                          DriveConstants::kTrackWidth / 2},
       frc::Translation2d{DriveConstants::kWheelBase / 2,
@@ -127,6 +127,11 @@ class DriveSubsystem : public frc2::SubsystemBase {
   frc::SlewRateLimiter<units::scalar> m_rotLimiter{
       DriveConstants::kRotationalSlewRate / 1_s};
   double m_prevTime = wpi::Now() * 1e-6;
+
+  double integral_error = 0;
+
+  double previous_time;
+  double pidOutput;
 
   // Odometry class for tracking robot pose
   // 4 defines the number of modules

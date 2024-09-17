@@ -39,6 +39,8 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
     void resetIntegralError(void);
 
+    void setVoltage(double voltage);
+
  private:
     rev::CANSparkMax m_shooterSparkMax1;
     rev::CANSparkMax m_shooterSparkMax2;
@@ -52,4 +54,5 @@ class ShooterSubsystem : public frc2::SubsystemBase {
     double error2;
     double integralError1 = 0;
     double integralError2 = 0;
+    double previous_time;
 };

@@ -5,6 +5,7 @@
 #include <rev/CANSparkMax.h>
 #include "frc/DigitalInput.h"
 #include <frc2/command/SubsystemBase.h>
+#include <ctre/phoenix6/TalonFX.hpp>
 
 #include <frc/Timer.h>
 
@@ -39,4 +40,6 @@ class IntakeSubsystem : public frc2::SubsystemBase {
     double meanSpeed;
     frc::DigitalInput limitSensor;
     bool noteInside = false;
+    ctre::phoenix6::hardware::TalonFX m_intakeFalcon1;
+    ctre::phoenix6::hardware::TalonFX m_intakeFalcon2;
 };
